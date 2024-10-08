@@ -1,6 +1,12 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/cube",
     "textures": {
-        "all": "mesonmod:block/speaker_block"
+        "up": "minecraft:block/note_block",
+        "down": "minecraft:block/note_block",
+        "north": "mesonmod:block/speaker_block_front",
+        "east": "minecraft:block/note_block",
+        "south": "minecraft:block/note_block",
+        "west": "minecraft:block/note_block",
+        "particle": "minecraft:block/note_block"
     }
 }
