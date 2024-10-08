@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "meson-mod",
+	"version": "${version}",
+	"name": "Meson Mod",
+	"description": "Tweaks and content mod inspired by other mods like Quark and Supplementaries that tries to expand on the technical, building, combat, exploration, and quirkiness of Minecraft in a vanilla-style way.",
+	"authors": [
+		"Alec Luh"
+	],
+	"contact": {
+		"email": "alecluh@gmail.com",
+		"sources": "https://github.com/RecursiveSushi/Meson"
+	},
+	"license": "GNU General Public License v3.0",
+	"icon": "assets/meson-mod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.alecluh.mesonmod.MesonMod"
+		],
+		"fabric-datagen": [
+			"net.alecluh.mesonmod.MesonModDataGenerator"
+		],
+		"client": [
+			"net.alecluh.mesonmod.MesonModClient"
+		]
+	},
+	"mixins": [
+		"mesonmod.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.5",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "mesonmod:block/speaker_block"
+        }
+    }
+}
