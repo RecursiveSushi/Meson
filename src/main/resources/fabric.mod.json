@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "meson-mod",
-	"version": "$1.21.X",
+	"version": "${version}",
 	"name": "Meson Mod",
 	"description": "Tweaks and content mod inspired by other mods like Quark and Supplementaries that tries to expand on the technical, building, combat, exploration, and quirkiness of Minecraft in a vanilla-style way.",
 	"authors": [
