@@ -1,21 +1,21 @@
 package net.alecluh.mesonmod.block;
 
 import net.alecluh.mesonmod.MesonMod;
+import net.alecluh.mesonmod.block.custom.SpeakerBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.BlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.block.MapColor;
 
 public class ModBlocks {
     public static final Block SPEAKER_BLOCK = registerBlock("speaker_block",
-        new Block(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).sounds(BlockSoundGroup.WOOD).strength(0.8F).burnable())
+        new SpeakerBlock(Block.Settings.copy(Blocks.NOTE_BLOCK))
         );
 
     private static Block registerBlock(String name, Block block) {

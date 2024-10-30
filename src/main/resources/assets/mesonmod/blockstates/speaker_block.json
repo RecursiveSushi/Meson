@@ -1,7 +1,22 @@
 {
     "variants": {
-        "": {
-            "model": "mesonmod:block/speaker_block"
-        }
+      "facing=north": {
+        "model": "mesonmod:block/speaker_block"
+      },
+      "facing=east": {
+        "model": "mesonmod:block/speaker_block",
+        "y": 90,
+        "uvlock": true
+      },
+      "facing=south": {
+        "model": "mesonmod:block/speaker_block",
+        "y": 180,
+        "uvlock": true
+      },
+      "facing=west": {
+        "model": "mesonmod:block/speaker_block",
+        "y": 270,
+        "uvlock": true
+      }
     }
-}
+  }
