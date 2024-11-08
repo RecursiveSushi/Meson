@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "catergory": "redstone",
+    "key": {
+        "0": {
+            "tag": "minecraft:planks"
+        },
+        "1": {
+            "tag": "minecraft:wooden_buttons"
+        },
+        "2": {
+            "item": "minecraft:redstone"
+        }
+    },
+
+    "pattern":[
+        "000",
+        "120",
+        "000"
+    ],
+    "result": {
+        "count": 1,
+        "id": "mesonmod:speaker_block"
+    }
+}

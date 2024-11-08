@@ -3,7 +3,7 @@ package net.alecluh.mesonmod.block;
 import net.alecluh.mesonmod.MesonMod;
 import net.alecluh.mesonmod.block.custom.SpeakerBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.AbstractBlock;
+//import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
