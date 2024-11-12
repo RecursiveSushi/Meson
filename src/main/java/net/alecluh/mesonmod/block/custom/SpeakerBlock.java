@@ -23,11 +23,9 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-//import net.minecraft.block.NoteBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
-//import net.minecraft.block.RedstoneWireBlock;
 
 public class SpeakerBlock extends HorizontalFacingBlock {
 
@@ -35,7 +33,6 @@ public class SpeakerBlock extends HorizontalFacingBlock {
 	public static final EnumProperty<NoteBlockInstrument> INSTRUMENT = Properties.INSTRUMENT;
 	public static final BooleanProperty POWERED = Properties.POWERED;
 	public static final IntProperty POWER = Properties.POWER;
-	
 
 	@Override
 	protected MapCodec<? extends SpeakerBlock> getCodec() {
@@ -53,7 +50,7 @@ public class SpeakerBlock extends HorizontalFacingBlock {
 				.with(POWER, Integer.valueOf(0))
 				);
 	}
- 
+
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(FACING, INSTRUMENT, POWERED, POWER);
@@ -66,7 +63,7 @@ public class SpeakerBlock extends HorizontalFacingBlock {
 	
 
 	private BlockState getStateWithInstrument(WorldAccess world, BlockPos pos, BlockState state) {
-		NoteBlockInstrument noteBlockInstrument = world.getBlockState(pos.up()).getInstrument();
+		NoteBlockInstrument noteBlockInstrument = world.getBlockState(pos.offset(state.get(FACING).getOpposite())).getInstrument();
 		if (noteBlockInstrument.isNotBaseBlock()) {
 			return state.with(INSTRUMENT, noteBlockInstrument);
 		} else {
@@ -107,12 +104,34 @@ public class SpeakerBlock extends HorizontalFacingBlock {
 		return (float)Math.pow(2.0, (double)(note - 12) / 12.0);
 	}
 
+	private int getGreatestNeighbor(WorldAccess world, BlockPos pos) {
+		int powerValues[] = {
+			world.getBlockState(pos.up()).getWeakRedstonePower(world, pos, Direction.DOWN),
+			world.getBlockState(pos.down()).getWeakRedstonePower(world, pos, Direction.UP),
+			world.getBlockState(pos.north()).getWeakRedstonePower(world, pos, Direction.SOUTH),
+			world.getBlockState(pos.east()).getWeakRedstonePower(world, pos, Direction.WEST),
+			world.getBlockState(pos.south()).getWeakRedstonePower(world, pos, Direction.NORTH),
+			world.getBlockState(pos.west()).getWeakRedstonePower(world, pos, Direction.EAST)
+		};
+		int max = 0;
+
+		for(int i : powerValues) {
+			if(i > max) {
+				max = i;
+			}
+		}
+		return max;
+	}
+
+
+
 	@Override
 	protected boolean onSyncedBlockEvent(BlockState state, World world, BlockPos pos, int type, int data) {
 		NoteBlockInstrument noteBlockInstrument = state.get(INSTRUMENT);
 		float f;
 		if (noteBlockInstrument.canBePitched()) {
-			int i = 10 /*(Integer)state.get(NOTE)*/;
+			int i = getGreatestNeighbor(world, pos);
+			//int i = world.getBlockState(pos.down()).getWeakRedstonePower(world, pos, Direction.NORTH);
 			f = getNotePitch(i);
 			Direction facing = state.get(FACING);
 			world.addParticle(ParticleTypes.NOTE, pos.getX() + 0.5 + facing.getOffsetX() * 0.725, pos.getY() + 0.5, pos.getZ() + 0.5 + facing.getOffsetZ() * 0.725, 0.0, 0.0, 0.0);
@@ -120,7 +139,6 @@ public class SpeakerBlock extends HorizontalFacingBlock {
 		} else {
 			f = 1.0F;
 		}
-
 
 		RegistryEntry<SoundEvent> registryEntry;
 		if (noteBlockInstrument.hasCustomSound()) {
@@ -134,7 +152,7 @@ public class SpeakerBlock extends HorizontalFacingBlock {
 			registryEntry = noteBlockInstrument.getSound();
 		}
 
-		//Change sound to play in front of speaker instead of atop it, also figure out where the condition is that if block is above to block sound, and change that to in front of speaker
+		//Change sound to play in front of speaker instead of atop it
 		world.playSound(
 			null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, registryEntry, SoundCategory.RECORDS, 3.0F, f, world.random.nextLong()
 		);
